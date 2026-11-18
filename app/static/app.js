@@ -81,13 +81,14 @@ async function carregarFila() {
       el("td", {}, el("strong", {}, f.prioridade)), el("td", {}, botao));
   }));
 }
-const areaDe = (sub) => ({ "Se": "SE", "Pinheiros": "PINHEIROS", "Campo Limpo": "CAMPO LIMPO" })[sub];
+const NOME_AREA = { "SE": "Sé", "PINHEIROS": "Pinheiros", "CAMPO LIMPO": "Campo Limpo" };
+const areaDe = (sub) => sub;
 
 // ----- painel -----
 async function carregarPainel() {
   const { dados } = await api("/api/painel");
   document.getElementById("cards").replaceChildren(...dados.map((p) => el("article", { class: "card" },
-    el("h3", {}, p.subprefeitura),
+    el("h3", {}, NOME_AREA[p.subprefeitura] || p.subprefeitura),
     el("div", { class: "num" }, `${p.pct_com_falha}%`), el("div", {}, "das luminárias com falha"),
     el("dl", {},
       el("dt", {}, "Monitoradas"), el("dd", {}, p.luminarias_monitoradas),

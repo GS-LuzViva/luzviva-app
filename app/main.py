@@ -202,9 +202,11 @@ def nova_ocorrencia(o: Ocorrencia):
 
 @app.get("/api/chamados")
 def listar_chamados(status: Optional[str] = None):
+    """`status` aceita um valor ou uma lista separada por virgula (ex.: aberto,em_atendimento)."""
     chamados = ler_chamados()
     if status:
-        chamados = [c for c in chamados if c["status"] == status]
+        aceitos = {s.strip() for s in status.split(",") if s.strip()}
+        chamados = [c for c in chamados if c["status"] in aceitos]
     return {"linhas": len(chamados), "dados": chamados}
 
 
