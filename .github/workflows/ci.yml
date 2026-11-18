@@ -85,11 +85,13 @@ jobs:
       - uses: actions/checkout@v4
       - name: Build
         env:
-          REPO: ${{ github.repository }}
+          # IMAGE_REPO (variavel do repo) aponta para o pacote que a EC2 puxa.
+          # Sem ela, publica no pacote do proprio repositorio.
+          IMAGE_REPO: ${{ vars.IMAGE_REPO || github.repository }}
           SHA: ${{ github.sha }}
         run: |
           set -euo pipefail
-          IMAGE="ghcr.io/${REPO,,}"
+          IMAGE="ghcr.io/${IMAGE_REPO,,}"
           echo "IMAGE=$IMAGE" >> "$GITHUB_ENV"
           docker build --build-arg APP_COMMIT="$SHA" -t "$IMAGE:$SHA" -t "$IMAGE:latest" .
       - name: Conferir usuario nao root na imagem
@@ -109,8 +111,9 @@ jobs:
       - name: Publicar no GHCR (so na main)
         if: env.PUBLICAR == 'true'
         env:
-          TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          ACTOR: ${{ github.actor }}
+          # GHCR_TOKEN: PAT (write:packages) do dono do pacote, quando o pacote nao e da org.
+          TOKEN: ${{ secrets.GHCR_TOKEN || secrets.GITHUB_TOKEN }}
+          ACTOR: ${{ vars.GHCR_USER || github.actor }}
           SHA: ${{ github.sha }}
         run: |
           echo "$TOKEN" | docker login ghcr.io -u "$ACTOR" --password-stdin
