@@ -22,7 +22,7 @@ Global Solution FIAP 2026.2 (CitizenTech), entrega de **Secure DevOps Tools & Cl
 | Fontes de dados | Neste MVP: dados simulados no formato dos contratos do grupo (`scripts/gerar_dados.py`). No produto: cadastro ILUME/GeoSampa, SP156, Open-Meteo, medições do robô, ocorrências do app e chamados do RPA |
 | Modelos de IA | No produto: YOLO11 (visão), LLM local com RAG (assistente), TinyML no ESP32. Neste MVP o assistente roda em modo simulado: responde citando a fila ou diz "não consta" |
 | URL do MVP | http://52.67.217.30 (AWS sa-east-1, São Paulo) |
-| Repositório | https://github.com/MatheusCosta616/luzviva-app |
+| Repositório | https://github.com/GS-LuzViva/luzviva-app |
 | Indicadores de impacto | % de falhas achadas antes de relato; tempo até o reparo; horas-luminária no escuro por noite |
 | ODS | 11 (meta 11.7), 9 e 10 |
 
