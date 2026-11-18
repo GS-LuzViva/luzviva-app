@@ -73,3 +73,19 @@ def test_deploy_info_exige_token(monkeypatch):
     ok = client.get("/internal/deploy", headers={"X-Deploy-Token": "segredo-de-teste"})
     assert ok.json() == {"commit": "abc123"}
     assert "commit" not in client.get("/health").json()
+
+
+def test_fila_usa_codigo_da_area_piloto():
+    areas = {f["subprefeitura"] for f in client.get("/api/fila").json()["dados"]}
+    assert areas <= {"SE", "PINHEIROS", "CAMPO LIMPO"}
+
+
+def test_filtro_de_status_aceita_lista():
+    base = {"area_piloto": "PINHEIROS", "prioridade": 50, "situacao_detectada": "apagada"}
+    a = client.post("/api/chamados", json={**base, "placa": "IP0711111"}).json()
+    client.post("/api/chamados", json={**base, "placa": "IP0722222"})
+    client.patch(f"/api/chamados/{a['id_chamado']}", json={"status": "em_atendimento"})
+    placas = {c["placa"] for c in client.get("/api/chamados", params={"status": "aberto,em_atendimento"}).json()["dados"]}
+    assert {"IP0711111", "IP0722222"} <= placas
+    so_aberto = {c["placa"] for c in client.get("/api/chamados", params={"status": "aberto"}).json()["dados"]}
+    assert "IP0711111" not in so_aberto

@@ -7,7 +7,7 @@
   {
    "placa": "IP0730284",
    "endereco": "Rua Fradique Coutinho, 1422",
-   "subprefeitura": "Pinheiros",
+   "subprefeitura": "PINHEIROS",
    "lat": -23.564354,
    "lon": -46.697382,
    "situacao": "apagada",
@@ -20,7 +20,7 @@
   {
    "placa": "IP0726411",
    "endereco": "Rua Pedro Gil, 532",
-   "subprefeitura": "Campo Limpo",
+   "subprefeitura": "CAMPO LIMPO",
    "lat": -23.645561,
    "lon": -46.762261,
    "situacao": "apagada",
@@ -33,7 +33,7 @@
   {
    "placa": "IP0782480",
    "endereco": "Av. Carlos Lacerda, 1306",
-   "subprefeitura": "Campo Limpo",
+   "subprefeitura": "CAMPO LIMPO",
    "lat": -23.648755,
    "lon": -46.756083,
    "situacao": "apagada",
@@ -46,7 +46,7 @@
   {
    "placa": "IP0749965",
    "endereco": "Rua Fradique Coutinho, 599",
-   "subprefeitura": "Pinheiros",
+   "subprefeitura": "PINHEIROS",
    "lat": -23.567388,
    "lon": -46.695091,
    "situacao": "apagada",
@@ -59,7 +59,7 @@
   {
    "placa": "IP0727382",
    "endereco": "Rua dos Pinheiros, 739",
-   "subprefeitura": "Pinheiros",
+   "subprefeitura": "PINHEIROS",
    "lat": -23.564332,
    "lon": -46.696774,
    "situacao": "apagada",
@@ -72,7 +72,7 @@
   {
    "placa": "IP0719625",
    "endereco": "Rua dos Pinheiros, 62",
-   "subprefeitura": "Pinheiros",
+   "subprefeitura": "PINHEIROS",
    "lat": -23.566875,
    "lon": -46.695067,
    "situacao": "apagada",
@@ -85,7 +85,7 @@
   {
    "placa": "IP0768272",
    "endereco": "Rua Teodoro Sampaio, 483",
-   "subprefeitura": "Pinheiros",
+   "subprefeitura": "PINHEIROS",
    "lat": -23.572941,
    "lon": -46.697883,
    "situacao": "apagada",
@@ -98,7 +98,7 @@
   {
    "placa": "IP0780566",
    "endereco": "Rua Joao Moura, 449",
-   "subprefeitura": "Pinheiros",
+   "subprefeitura": "PINHEIROS",
    "lat": -23.566162,
    "lon": -46.692246,
    "situacao": "apagada",
@@ -111,7 +111,7 @@
   {
    "placa": "IP0713011",
    "endereco": "Av. Carlos Lacerda, 655",
-   "subprefeitura": "Campo Limpo",
+   "subprefeitura": "CAMPO LIMPO",
    "lat": -23.645643,
    "lon": -46.757713,
    "situacao": "insuficiente",
@@ -124,7 +124,7 @@
   {
    "placa": "IP0780525",
    "endereco": "Praca da Se, 754",
-   "subprefeitura": "Se",
+   "subprefeitura": "SE",
    "lat": -23.550967,
    "lon": -46.638912,
    "situacao": "insuficiente",
@@ -137,7 +137,7 @@
   {
    "placa": "IP0769000",
    "endereco": "Rua Teodoro Sampaio, 325",
-   "subprefeitura": "Pinheiros",
+   "subprefeitura": "PINHEIROS",
    "lat": -23.565905,
    "lon": -46.696516,
    "situacao": "insuficiente",
@@ -150,7 +150,7 @@
   {
    "placa": "IP0762978",
    "endereco": "Estrada do Campo Limpo, 1415",
-   "subprefeitura": "Campo Limpo",
+   "subprefeitura": "CAMPO LIMPO",
    "lat": -23.65051,
    "lon": -46.758985,
    "situacao": "insuficiente",
@@ -163,7 +163,7 @@
   {
    "placa": "IP0775329",
    "endereco": "Rua Direita, 198",
-   "subprefeitura": "Se",
+   "subprefeitura": "SE",
    "lat": -23.556497,
    "lon": -46.633032,
    "situacao": "insuficiente",
@@ -176,7 +176,7 @@
   {
    "placa": "IP0724758",
    "endereco": "Rua Domingos de Godoy, 1080",
-   "subprefeitura": "Campo Limpo",
+   "subprefeitura": "CAMPO LIMPO",
    "lat": -23.650752,
    "lon": -46.757225,
    "situacao": "apagada",
@@ -189,7 +189,7 @@
   {
    "placa": "IP0721037",
    "endereco": "Estrada do Campo Limpo, 47",
-   "subprefeitura": "Campo Limpo",
+   "subprefeitura": "CAMPO LIMPO",
    "lat": -23.648599,
    "lon": -46.754802,
    "situacao": "insuficiente",
@@ -202,7 +202,7 @@
   {
    "placa": "IP0725613",
    "endereco": "Rua XV de Novembro, 1240",
-   "subprefeitura": "Se",
+   "subprefeitura": "SE",
    "lat": -23.549042,
    "lon": -46.634953,
    "situacao": "insuficiente",
@@ -215,7 +215,7 @@
   {
    "placa": "IP0724514",
    "endereco": "Rua Benjamin Constant, 1401",
-   "subprefeitura": "Se",
+   "subprefeitura": "SE",
    "lat": -23.552729,
    "lon": -46.635233,
    "situacao": "insuficiente",
@@ -228,7 +228,7 @@
   {
    "placa": "IP0777524",
    "endereco": "Rua Benjamin Constant, 1500",
-   "subprefeitura": "Se",
+   "subprefeitura": "SE",
    "lat": -23.55075,
    "lon": -46.639228,
    "situacao": "insuficiente",
@@ -241,7 +241,7 @@
   {
    "placa": "IP0786812",
    "endereco": "Rua Joao Moura, 412",
-   "subprefeitura": "Pinheiros",
+   "subprefeitura": "PINHEIROS",
    "lat": -23.568488,
    "lon": -46.687494,
    "situacao": "insuficiente",
@@ -254,7 +254,7 @@
   {
    "placa": "IP0794630",
    "endereco": "Rua dos Pinheiros, 730",
-   "subprefeitura": "Pinheiros",
+   "subprefeitura": "PINHEIROS",
    "lat": -23.562842,
    "lon": -46.69478,
    "situacao": "insuficiente",
@@ -267,7 +267,7 @@
   {
    "placa": "IP0776404",
    "endereco": "Rua Cardeal Arcoverde, 654",
-   "subprefeitura": "Pinheiros",
+   "subprefeitura": "PINHEIROS",
    "lat": -23.571063,
    "lon": -46.695927,
    "situacao": "insuficiente",
@@ -280,7 +280,7 @@
   {
    "placa": "IP0760993",
    "endereco": "Rua Pedro Gil, 58",
-   "subprefeitura": "Campo Limpo",
+   "subprefeitura": "CAMPO LIMPO",
    "lat": -23.651623,
    "lon": -46.761033,
    "situacao": "insuficiente",
