@@ -12,8 +12,8 @@ permissions:
   contents: read
 
 env:
-  GITLEAKS_IMAGE: ghcr.io/gitleaks/gitleaks:v8.21.2   # confira/atualize a versao
-  TRIVY_IMAGE: aquasec/trivy:0.58.1                    # confira/atualize a versao
+  GITLEAKS_IMAGE: ghcr.io/gitleaks/gitleaks:v8.21.2
+  TRIVY_IMAGE: aquasec/trivy:0.58.1
   SEMGREP_VERSION: "1.183.0"
 
 jobs:
@@ -52,7 +52,6 @@ jobs:
           elif [ "$PUSH_BEFORE" != "0000000000000000000000000000000000000000" ]; then
             RANGE="$PUSH_BEFORE..$SHA"
           else
-            # primeiro push da branch: so os commits que ainda nao estao na main
             RANGE="origin/${DEFAULT_BRANCH}..$SHA"
           fi
           echo "Intervalo varrido: ${RANGE:-historico completo}"
@@ -85,8 +84,6 @@ jobs:
       - uses: actions/checkout@v4
       - name: Build
         env:
-          # IMAGE_REPO (variavel do repo) aponta para o pacote que a EC2 puxa.
-          # Sem ela, publica no pacote do proprio repositorio.
           IMAGE_REPO: ${{ vars.IMAGE_REPO || github.repository }}
           SHA: ${{ github.sha }}
         run: |
@@ -111,7 +108,6 @@ jobs:
       - name: Publicar no GHCR (so na main)
         if: env.PUBLICAR == 'true'
         env:
-          # GHCR_TOKEN: PAT (write:packages) do dono do pacote, quando o pacote nao e da org.
           TOKEN: ${{ secrets.GHCR_TOKEN || secrets.GITHUB_TOKEN }}
           ACTOR: ${{ vars.GHCR_USER || github.actor }}
           SHA: ${{ github.sha }}
@@ -121,7 +117,6 @@ jobs:
           docker push "$IMAGE:latest"
 
   compose:
-    # Prova que a stack inteira sobe com docker compose: app + Prometheus + Grafana.
     needs: [test]
     runs-on: ubuntu-latest
     timeout-minutes: 10
@@ -160,10 +155,6 @@ jobs:
           case "$RESULTADOS" in *failure*|*cancelled*) exit 1;; esac
 
   deploy:
-    # Deploy por pull: a EC2 confere o GHCR a cada minuto e troca o container quando a
-    # imagem :latest muda. Nenhuma credencial da AWS fica no GitHub. Este job confirma,
-    # com o DEPLOY_TOKEN (GitHub Secrets; na AWS fica no SSM Parameter Store), que o
-    # commit entrou no ar.
     needs: [ci-ok]
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest

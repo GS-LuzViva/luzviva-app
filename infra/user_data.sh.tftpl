@@ -3,13 +3,11 @@ set -uo pipefail
 dnf install -y docker
 systemctl enable --now docker
 
-# Dados do app (relatos, medicoes, chamados) ficam no disco da EC2, fora do container.
 mkdir -p /opt/luzviva/data
 touch /opt/luzviva/app.env
 chown 10001:10001 /opt/luzviva/data
 chmod 600 /opt/luzviva/app.env
 
-# Deploy por pull: baixa ${image} e recria o container so quando a imagem mudou.
 cat > /opt/luzviva/deploy.sh <<'EOF'
 #!/bin/bash
 set -uo pipefail
@@ -18,7 +16,6 @@ docker pull -q "$IMAGE" >/dev/null || exit 0
 NOVA=$(docker image inspect -f '{{.Id}}' "$IMAGE")
 ATUAL=$(docker inspect -f '{{.Image}}' app 2>/dev/null || echo nenhuma)
 if [ "$NOVA" != "$ATUAL" ]; then
-  # Token de deploy lido do SSM (cifrado) a cada troca de container; nunca fica na imagem.
   TOKEN=$(aws ssm get-parameter --region "${region}" --name "${token_param}" \
     --with-decryption --query Parameter.Value --output text 2>/dev/null || true)
   umask 077

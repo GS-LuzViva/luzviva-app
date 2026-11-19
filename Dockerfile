@@ -1,4 +1,3 @@
-# ---- build ----
 FROM python:3.12-slim AS build
 WORKDIR /src
 RUN python -m venv /opt/venv
@@ -6,12 +5,10 @@ ENV PATH="/opt/venv/bin:$PATH"
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# ---- runtime ----
 FROM python:3.12-slim
 ARG APP_COMMIT=local
 ENV APP_COMMIT=$APP_COMMIT
 ENV PATH="/opt/venv/bin:$PATH" PYTHONUNBUFFERED=1 PYTHONDONTWRITEBYTECODE=1 LUZVIVA_DATA_DIR=/data
-# Aplica correcoes de seguranca do Debian (o Trivy barrou zlib1g HIGH na imagem base)
 RUN apt-get update \
  && apt-get upgrade -y --no-install-recommends \
  && rm -rf /var/lib/apt/lists/*

@@ -4,7 +4,6 @@ terraform {
     aws    = { source = "hashicorp/aws", version = "~> 5.0" }
     random = { source = "hashicorp/random", version = "~> 3.6" }
   }
-  # State fora do Git (.gitignore). Aqui ele fica no AWS CloudShell, onde o apply roda.
 }
 
 provider "aws" {
@@ -31,7 +30,6 @@ data "aws_ami" "al2023" {
   }
 }
 
-# Sem porta 22: administração via SSM. Só o app (80) é público.
 resource "aws_security_group" "app" {
   name_prefix = "luzviva-app-"
   description = "LuzViva: HTTP publico, sem SSH"
@@ -61,12 +59,10 @@ resource "aws_instance" "app" {
   instance_type          = var.instance_type
   subnet_id              = data.aws_subnets.default.ids[0]
   vpc_security_group_ids = [aws_security_group.app.id]
-  # Role propria com permissao minima (so le o token de deploy no SSM).
-  # No Learner Lab, informe instance_profile_name = "LabInstanceProfile".
   iam_instance_profile = var.instance_profile_name == "" ? aws_iam_instance_profile.ec2.name : var.instance_profile_name
 
   metadata_options {
-    http_tokens = "required" # IMDSv2
+    http_tokens = "required"
   }
 
   root_block_device {
@@ -84,13 +80,11 @@ resource "aws_instance" "app" {
   tags = { Name = "luzviva-app", projeto = "gs-luzviva" }
 }
 
-# IP fixo: sem isso a URL muda quando a instancia para e volta.
 resource "aws_eip" "app" {
   instance = aws_instance.app.id
   domain   = "vpc"
 }
 
-# Alerta de custo: avisa em 80% do teto previsto e em 100% do gasto real.
 resource "aws_budgets_budget" "mensal" {
   count        = var.budget_email == "" ? 0 : 1
   name         = "luzviva-mensal"
@@ -116,9 +110,6 @@ resource "aws_budgets_budget" "mensal" {
   }
 }
 
-# ---------- Segredo de deploy ----------
-# Gerado aqui, guardado cifrado no SSM Parameter Store (KMS) e copiado para o
-# GitHub Secrets (DEPLOY_TOKEN). Nunca aparece no codigo nem na imagem.
 resource "random_password" "deploy_token" {
   length  = 40
   special = false
@@ -131,7 +122,6 @@ resource "aws_ssm_parameter" "deploy_token" {
   value       = random_password.deploy_token.result
 }
 
-# ---------- IAM: a EC2 so pode ler esse parametro ----------
 data "aws_iam_policy_document" "ec2_assume" {
   statement {
     actions = ["sts:AssumeRole"]

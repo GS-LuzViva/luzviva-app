@@ -1,9 +1,8 @@
-# Sobe tudo local:  cp .env.example .env && docker compose up --build
 services:
   app:
     build: .
     environment:
-      ENABLE_FAULT_ENDPOINT: "true"   # só para demo do alerta
+      ENABLE_FAULT_ENDPOINT: "true"
       LUZVIVA_DATA_DIR: /data
     volumes:
       - luzviva-data:/data

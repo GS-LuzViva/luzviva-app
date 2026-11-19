@@ -46,12 +46,11 @@ async def medir(request: Request, call_next):
         return resposta
     finally:
         rota = request.scope.get("route")
-        caminho = rota.path if rota else "nao_mapeado"  # evita cardinalidade alta
+        caminho = rota.path if rota else "nao_mapeado"
         LATENCY.labels(request.method, caminho).observe(time.perf_counter() - inicio)
         REQUESTS.labels(request.method, caminho, str(status)).inc()
 
 
-# ---------- utilidades ----------
 def agora() -> str:
     return datetime.now(TZ).replace(tzinfo=None, microsecond=0).isoformat()
 
@@ -83,7 +82,6 @@ def salvar_chamados(chamados: list) -> None:
     chamados_path().write_text(json.dumps(chamados, ensure_ascii=False, indent=1), encoding="utf-8")
 
 
-# ---------- contratos (secao 5 do roteiro) ----------
 class Medicao(BaseModel):
     id_medicao: str = Field(max_length=40)
     robo_id: str = Field(max_length=20)
@@ -132,7 +130,6 @@ class Pergunta(BaseModel):
     placa: Optional[str] = Field(default=None, pattern=r"^IP\d{7}$")
 
 
-# ---------- site e operacao ----------
 @app.get("/", include_in_schema=False)
 def site():
     return FileResponse(BASE / "static" / "index.html")
@@ -168,7 +165,6 @@ def erro():
     raise HTTPException(status_code=500, detail="erro simulado")
 
 
-# ---------- leitura (saidas do pipeline) ----------
 @app.get("/api/luminarias")
 def luminarias():
     return ler_fixo("luminarias")
@@ -184,7 +180,6 @@ def painel():
     return ler_fixo("painel")
 
 
-# ---------- escrita (robo, visao, site, RPA) ----------
 @app.post("/api/medicoes", status_code=201)
 def nova_medicao(m: Medicao):
     gravar_evento("medicoes", m.model_dump(mode="json"))
@@ -248,7 +243,6 @@ def atualizar_chamado(id_chamado: str, a: AtualizaChamado):
     return alvo
 
 
-# ---------- assistente (modo simulado) ----------
 @app.post("/api/assistente")
 def assistente(p: Pergunta):
     """Responde a partir da fila, com fonte; sem dado na base, recusa ("nao consta").
@@ -268,11 +262,10 @@ def assistente(p: Pergunta):
             "recusou": False, "confianca": 0.9, "modo": "simulado"}
 
 
-# ---------- exportacao para o pipeline ----------
 @app.get("/api/export/{fonte}")
 def exportar(fonte: Literal["medicoes", "ocorrencias", "chamados"],
              data: str = Query(..., pattern=r"^\d{4}-\d{2}-\d{2}$")):
-    dia = date.fromisoformat(data)  # valida e normaliza: impede path traversal
+    dia = date.fromisoformat(data)
     arquivo = DATA_DIR / f"{fonte}_{dia.isoformat()}.jsonl"
     if not arquivo.exists():
         return {"fonte": fonte, "data": dia.isoformat(), "linhas": 0, "dados": []}

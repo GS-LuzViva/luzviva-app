@@ -1,4 +1,3 @@
-// LuzViva: front do MVP. Monta o DOM com textContent (sem innerHTML) para nao injetar HTML.
 const ROTULO = { apagada: "Apagada", insuficiente: "Insuficiente", ok: "Acesa" };
 const COR = { apagada: "#ff5c5c", insuficiente: "#f5b83d", ok: "#3ccf8e" };
 
@@ -21,7 +20,6 @@ async function api(caminho, opcoes) {
   return corpo;
 }
 
-// ----- abas (teclado: setas esquerda/direita) -----
 const abas = [...document.querySelectorAll('[role="tab"]')];
 let mapa;
 function ativar(aba) {
@@ -44,7 +42,6 @@ abas.forEach((a, i) => {
   });
 });
 
-// ----- mapa -----
 async function carregarMapa() {
   const { dados } = await api("/api/luminarias");
   mapa = L.map("mapa").setView([-23.59, -46.70], 12);
@@ -61,7 +58,6 @@ async function carregarMapa() {
   });
 }
 
-// ----- fila -----
 async function carregarFila() {
   const { dados } = await api("/api/fila");
   const corpo = document.querySelector("#tabela-fila tbody");
@@ -84,7 +80,6 @@ async function carregarFila() {
 const NOME_AREA = { "SE": "Sé", "PINHEIROS": "Pinheiros", "CAMPO LIMPO": "Campo Limpo" };
 const areaDe = (sub) => sub;
 
-// ----- painel -----
 async function carregarPainel() {
   const { dados } = await api("/api/painel");
   document.getElementById("cards").replaceChildren(...dados.map((p) => el("article", { class: "card" },
@@ -97,7 +92,6 @@ async function carregarPainel() {
       el("dt", {}, "Horas-luminária no escuro/noite"), el("dd", {}, p.horas_luminaria_no_escuro_noite)))));
 }
 
-// ----- chamados -----
 async function carregarChamados() {
   const { dados } = await api("/api/chamados");
   document.getElementById("sem-chamados").hidden = dados.length > 0;
@@ -118,7 +112,6 @@ async function carregarChamados() {
   }));
 }
 
-// ----- reportar -----
 document.getElementById("form-ocorrencia").addEventListener("submit", async (e) => {
   e.preventDefault();
   const dados = Object.fromEntries(new FormData(e.target));
@@ -131,7 +124,6 @@ document.getElementById("form-ocorrencia").addEventListener("submit", async (e) 
   } catch (err) { saida.textContent = `Não foi possível enviar: confira a placa (IP + 7 dígitos).`; }
 });
 
-// ----- assistente -----
 document.getElementById("form-assistente").addEventListener("submit", async (e) => {
   e.preventDefault();
   const pergunta = new FormData(e.target).get("pergunta");

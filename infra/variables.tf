@@ -1,12 +1,12 @@
 variable "region" {
   type        = string
-  default     = "sa-east-1" # Sao Paulo: dados pessoais ficam no Brasil (LGPD)
+  default     = "sa-east-1"
   description = "Regiao AWS"
 }
 
 variable "instance_type" {
   type    = string
-  default = "t3.micro" # confira se o Learner Lab permite; alternativa: t2.micro
+  default = "t3.micro"
 }
 
 variable "instance_profile_name" {

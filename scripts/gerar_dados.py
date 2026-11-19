@@ -19,8 +19,6 @@ GERADO_EM = "2026-11-10T22:00:00"
 POR_AREA = 16
 
 AREAS = {
-    # area: (lat, lon, subprefeitura, ruas). subprefeitura usa o codigo da area-piloto,
-    # como no contrato da fila que o robo de RPA consome.
     "SE": (-23.5505, -46.6340, "SE",
            ["Rua Direita", "Rua XV de Novembro", "Praca da Se", "Rua Benjamin Constant", "Rua do Carmo"]),
     "PINHEIROS": (-23.5670, -46.6930, "PINHEIROS",

@@ -1,5 +1,3 @@
-# Prometheus local lendo o MVP publicado na AWS (sa-east-1).
-# Uso: no .env, PROM_CONFIG=prometheus.remote.yml; depois: docker compose up prometheus grafana
 global:
   scrape_interval: 15s
 rule_files:
